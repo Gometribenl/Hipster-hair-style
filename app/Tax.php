@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Products extends Model
+class Tax extends Model
 {
     protected $fillable = [
-        'title', 'desc', 'instock',
+        'tax'
     ];
-
+    public $timestamps = false;
 }

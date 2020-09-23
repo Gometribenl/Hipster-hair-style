@@ -23,10 +23,12 @@ Route::get('/password/reset', function() {
     return view('auth/reset');
 });
 
-Route::get('/{any}', function(){
+Route::get('/', function(){
     return view('welcome');
-})->where('any', '.*');
+});
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource('/products', 'ProductsController');
+Route::resource('/tax', 'TaxController');
+//Auth::routes();
+//
+//Route::get('/home', 'HomeController@index')->name('home');

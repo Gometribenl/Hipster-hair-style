@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Products;
+use App\Tax;
 use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+class TaxController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,9 +14,8 @@ class ProductsController extends Controller
      */
     public function index()
     {
-        $show = Products::all();
+        return response()->json(Tax::all());
 
-        return ($show);
     }
 
     /**
@@ -26,7 +25,7 @@ class ProductsController extends Controller
      */
     public function create()
     {
-
+        //
     }
 
     /**
@@ -37,33 +36,29 @@ class ProductsController extends Controller
      */
     public function store(Request $request)
     {
-        $objproduct = new Products();
-        $objproduct->title = $request->input('title');
-        $objproduct->desc = $request->input('desc');
-        $objproduct->instock = $request->input('instock');
-        $objproduct->save();
+        $objtax = new Tax();
+        $objtax->tax = $request->input('tax');
+        $objtax->save();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Products  $products
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
-    public function show(Products $products)
+    public function show(Tax $tax)
     {
-        $objproducts = Products::where('product', $products)->get();
-
-        return $objproducts;
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Products  $products
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
-    public function edit(Products $products)
+    public function edit(Tax $tax)
     {
         //
     }
@@ -72,10 +67,10 @@ class ProductsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Products  $products
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Products $products)
+    public function update(Request $request, Tax $tax)
     {
         //
     }
@@ -83,10 +78,10 @@ class ProductsController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Products  $products
+     * @param  \App\Tax  $tax
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Products $products)
+    public function destroy(Tax $tax)
     {
         //
     }
