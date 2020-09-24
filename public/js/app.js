@@ -2020,12 +2020,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
       taxes: [],
-      tax: ''
+      tax: '',
+      products: [],
+      product: ''
     };
   },
   methods: {
@@ -2039,10 +2050,22 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
+    },
+    getProducts: function getProducts() {
+      var _this2 = this;
+
+      axios.get('/products').then(function (_ref2) {
+        var data = _ref2.data;
+        console.log(data);
+        _this2.products = data;
+      })["catch"](function (error) {
+        console.error(error);
+      });
     }
   },
   created: function created() {
     this.getTaxes();
+    this.getProducts();
   }
 });
 
@@ -37855,7 +37878,9 @@ var render = function() {
           "select",
           { attrs: { name: "tax", id: "tax" } },
           _vm._l(_vm.taxes, function(tax) {
-            return _c("option", [_vm._v(_vm._s(tax.tax))])
+            return _c("option", { domProps: { value: tax.id } }, [
+              _vm._v(_vm._s(tax.tax))
+            ])
           }),
           0
         ),
@@ -37877,7 +37902,22 @@ var render = function() {
         _vm._v(" "),
         _c("input", { attrs: { type: "submit", value: "verzend" } })
       ])
-    ])
+    ]),
+    _vm._v(" "),
+    _c(
+      "div",
+      { staticClass: "row" },
+      _vm._l(_vm.products, function(product) {
+        return _c("div", { staticClass: "col-6" }, [
+          _c("h5", [_vm._v(_vm._s(product.title))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(product.desc))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(product.instock))])
+        ])
+      }),
+      0
+    )
   ])
 }
 var staticRenderFns = []
