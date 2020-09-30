@@ -2029,6 +2029,16 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2036,10 +2046,20 @@ __webpack_require__.r(__webpack_exports__);
       taxes: [],
       tax: '',
       products: [],
-      product: ''
+      product: '',
+      productsInCart: []
     };
   },
+  mounted: function mounted() {
+    if (localStorage.getItem('cart')) {
+      this.productsInCart = localStorage.getItem('cart');
+    }
+  },
   methods: {
+    persist: function persist(id) {
+      this.productsInCart.push(id);
+      localStorage.setItem('cart', this.productsInCart);
+    },
     getTaxes: function getTaxes() {
       var _this = this;
 
@@ -37852,41 +37872,54 @@ var render = function() {
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
-      _c("p", [_vm._v("test")]),
-      _vm._v(" "),
-      _c("form", { attrs: { action: "products", method: "POST" } }, [
-        _c("input", {
-          attrs: { type: "hidden", name: "_token" },
-          domProps: { value: _vm.csrf }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "text", placeholder: "title", name: "title" }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "text", placeholder: "desc", name: "desc" }
-        }),
-        _vm._v(" "),
-        _c("input", {
-          attrs: { type: "text", placeholder: "instock", name: "instock" }
-        }),
-        _vm._v(" "),
-        _c("label", { attrs: { for: "tax" } }),
-        _vm._v(" "),
-        _c(
-          "select",
-          { attrs: { name: "tax", id: "tax" } },
-          _vm._l(_vm.taxes, function(tax) {
-            return _c("option", { domProps: { value: tax.id } }, [
-              _vm._v(_vm._s(tax.tax))
-            ])
+      _c("div", { staticClass: "col-8" }, [
+        _c("form", { attrs: { action: "products", method: "POST" } }, [
+          _c("input", {
+            attrs: { type: "hidden", name: "_token" },
+            domProps: { value: _vm.csrf }
           }),
-          0
-        ),
-        _vm._v(" "),
-        _c("input", { attrs: { type: "submit", value: "verzend" } })
-      ])
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "text", placeholder: "title", name: "title" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "text", placeholder: "desc", name: "desc" }
+          }),
+          _vm._v(" "),
+          _c("input", {
+            attrs: { type: "text", placeholder: "instock", name: "instock" }
+          }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "tax" } }),
+          _vm._v(" "),
+          _c(
+            "select",
+            { attrs: { name: "tax", id: "tax" } },
+            _vm._l(_vm.taxes, function(tax) {
+              return _c("option", { domProps: { value: tax.id } }, [
+                _vm._v(_vm._s(tax.tax))
+              ])
+            }),
+            0
+          ),
+          _vm._v(" "),
+          _c("input", { attrs: { type: "submit", value: "verzend" } })
+        ])
+      ]),
+      _vm._v(" "),
+      _c(
+        "div",
+        { staticClass: "col-4" },
+        _vm._l(_vm.productsInCart, function(cart) {
+          return _c("div", [
+            _c("p", [
+              _c("span", { staticClass: "cat" }, [_vm._v(_vm._s(cart))])
+            ])
+          ])
+        }),
+        0
+      )
     ]),
     _vm._v(" "),
     _c("div", { staticClass: "row" }, [
@@ -37913,7 +37946,21 @@ var render = function() {
           _vm._v(" "),
           _c("p", [_vm._v(_vm._s(product.desc))]),
           _vm._v(" "),
-          _c("p", [_vm._v(_vm._s(product.instock))])
+          _c("p", [_vm._v(_vm._s(product.instock))]),
+          _vm._v(" "),
+          _c("p", [_vm._v(_vm._s(product.price))]),
+          _vm._v(" "),
+          _c(
+            "button",
+            {
+              on: {
+                click: function($event) {
+                  return _vm.persist(product.title)
+                }
+              }
+            },
+            [_vm._v("add to cart")]
+          )
         ])
       }),
       0
@@ -53497,8 +53544,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\hipster-hair-shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\www\hipster-hair-shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/kayjoosten/Documents/www/School/hipster-hair-shop/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/kayjoosten/Documents/www/School/hipster-hair-shop/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
