@@ -41,8 +41,11 @@ class ProductsController extends Controller
         $objproduct->title = $request->input('title');
         $objproduct->desc = $request->input('desc');
         $objproduct->instock = $request->input('instock');
+        $objproduct->price = $request->input('price');
         $objproduct->taxes_id = $request->input('tax');
         $objproduct->save();
+
+        return view('welcome');
     }
 
     /**

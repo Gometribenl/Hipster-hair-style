@@ -1,20 +1,18 @@
 <template>
+
     <div class="container">
         <div class="row">
             <div class="col-8">
                 <form action="" method="POST">
                     <input type="hidden" name="_token" :value="csrf">
-                    <input type="text" placeholder="voornaam" name="first_name" />
-                    <input type="text" placeholder="achternaam" name="last_name" />
-                    <input type="tel" placeholder="telefoonnummer" name="phonenumber" />
                     <input type="email" placeholder="email" name="email" />
-                    <input type="password" placeholder="password" name="password" />
                     <input type="password" placeholder="password" name="password" />
                     <input type="submit" value="verzend"/>
                 </form>
             </div>
         </div>
     </div>
+
 </template>
 
 <script>
@@ -38,7 +36,6 @@
 
         }
 
-    }
-</script>
 
+    }
 </script>

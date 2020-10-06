@@ -33,7 +33,7 @@
                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
             </form>
         </div>
-        <p>test</p>
+
     </nav>
 </template>
 
@@ -42,4 +42,4 @@
 <script>
     export default {
     }
-</script>git
+</script>

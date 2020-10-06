@@ -18,6 +18,7 @@ class CreateProducts extends Migration
             $table->string('title');
             $table->text('desc');
             $table->integer('instock');
+            $table->decimal('price');
             $table->foreignId('taxes_id')->constrained('taxes');
             $table->timestamps();
         });

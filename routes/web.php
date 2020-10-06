@@ -12,23 +12,18 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/login', function() {
-    return view('auth/login');
-});
-
-Route::get('/register', function() {
-    return view('auth/register');
-});
-Route::get('/password/reset', function() {
-    return view('auth/reset');
-});
-
-Route::get('/', function(){
-    return view('welcome');
-});
+Route::get('/order/payment/{value}', 'OrderController@preparePayment');
+Route::get('/order/success', 'OrderController@handleErrorOrSuccess');
+Route::get('/order/webhooks', 'OrderController@handleErrorOrSuccess');
 
 Route::resource('/products', 'ProductsController');
 Route::resource('/tax', 'TaxController');
+
+Route::get('/{any}', function(){
+    return view('welcome');
+})->where('any', '.*');
+
+
 //Auth::routes();
 //
 //Route::get('/home', 'HomeController@index')->name('home');
