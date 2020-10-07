@@ -1936,17 +1936,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      //generates csrf token
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+      // data needed to display taxes
       taxes: [],
-      tax: '',
-      products: [],
-      product: '',
-      productsInCart: []
+      tax: ''
     };
   },
+  // functions
   methods: {
     getTaxes: function getTaxes() {
       var _this = this;
@@ -1957,21 +1959,11 @@ __webpack_require__.r(__webpack_exports__);
       })["catch"](function (error) {
         console.error(error);
       });
-    },
-    getProducts: function getProducts() {
-      var _this2 = this;
-
-      axios.get('/products').then(function (_ref2) {
-        var data = _ref2.data;
-        _this2.products = data;
-      })["catch"](function (error) {
-        console.error(error);
-      });
     }
   },
+  // starts when site is loaded
   created: function created() {
     this.getTaxes();
-    this.getProducts();
   }
 });
 
@@ -2099,41 +2091,36 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      taxes: [],
-      tax: '',
+      // data needed to display products
       products: [],
       product: '',
+      // data needed to display products in cart
       productsInCart: []
     };
   },
   mounted: function mounted() {
+    // checks if products are in a session
     if (sessionStorage.getItem('cart')) {
       this.productsInCart = JSON.parse(sessionStorage.getItem('cart'));
     }
   },
   methods: {
+    // adds products to cart and session
     addToCart: function addToCart(id) {
       this.productsInCart.push(id);
       sessionStorage.setItem('cart', JSON.stringify(this.productsInCart));
     },
+    // removes product from cart and session
     removeToCart: function removeToCart(id) {
       this.productsInCart.splice(id, 1);
       sessionStorage.setItem('cart', JSON.stringify(this.productsInCart));
     },
-    getTaxes: function getTaxes() {
-      var _this = this;
-
-      axios.get('/tax').then(function (_ref) {
-        var data = _ref.data;
-        _this.taxes = data;
-      })["catch"](function (error) {
-        console.error(error);
-      });
-    },
+    // handles payment front-end
     handlePayment: function handlePayment() {
       var total = 0;
 
@@ -2147,19 +2134,20 @@ __webpack_require__.r(__webpack_exports__);
       total = total.toFixed(2);
       window.location.assign('http://4346e579fbc8.ngrok.io/order/payment/' + total.toString());
     },
+    // gets products from database
     getProducts: function getProducts() {
-      var _this2 = this;
+      var _this = this;
 
-      axios.get('/products').then(function (_ref2) {
-        var data = _ref2.data;
-        _this2.products = data;
+      axios.get('/products').then(function (_ref) {
+        var data = _ref.data;
+        _this.products = data;
       })["catch"](function (error) {
         console.error(error);
       });
     }
   },
   created: function created() {
-    this.getTaxes();
+    // starts function when site is loaded
     this.getProducts();
   }
 });
@@ -2175,6 +2163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+//
 //
 //
 //
@@ -2234,13 +2223,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-      email: '',
-      password: ''
+      credentials: {
+        email: '',
+        password: '',
+        first_name: '',
+        last_name: '',
+        phonenumber: ''
+      }
     };
   },
   mounted: function mounted() {},
@@ -38222,7 +38215,7 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-8" }, [
-        _c("form", { attrs: { action: "", method: "POST" } }, [
+        _c("form", { attrs: { action: "/user/login", method: "POST" } }, [
           _c("input", {
             attrs: { type: "hidden", name: "_token" },
             domProps: { value: _vm.csrf }
@@ -38271,49 +38264,130 @@ var render = function() {
   return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "row" }, [
       _c("div", { staticClass: "col-8" }, [
-        _c("form", { attrs: { action: "", method: "POST" } }, [
+        _c("form", { attrs: { action: "/user", method: "POST" } }, [
           _c("input", {
             attrs: { type: "hidden", name: "_token" },
             domProps: { value: _vm.csrf }
           }),
           _vm._v(" "),
           _c("input", {
-            attrs: { type: "text", placeholder: "voornaam", name: "first_name" }
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.credentials.first_name,
+                expression: "credentials.first_name"
+              }
+            ],
+            attrs: {
+              type: "text",
+              placeholder: "voornaam",
+              name: "first_name"
+            },
+            domProps: { value: _vm.credentials.first_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.credentials, "first_name", $event.target.value)
+              }
+            }
           }),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.credentials.last_name,
+                expression: "credentials.last_name"
+              }
+            ],
             attrs: {
               type: "text",
               placeholder: "achternaam",
               name: "last_name"
+            },
+            domProps: { value: _vm.credentials.last_name },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.credentials, "last_name", $event.target.value)
+              }
             }
           }),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.credentials.phonenumber,
+                expression: "credentials.phonenumber"
+              }
+            ],
             attrs: {
               type: "tel",
               placeholder: "telefoonnummer",
               name: "phonenumber"
+            },
+            domProps: { value: _vm.credentials.phonenumber },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.credentials, "phonenumber", $event.target.value)
+              }
             }
           }),
           _vm._v(" "),
           _c("input", {
-            attrs: { type: "email", placeholder: "email", name: "email" }
-          }),
-          _vm._v(" "),
-          _c("input", {
-            attrs: {
-              type: "password",
-              placeholder: "password",
-              name: "password"
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.credentials.email,
+                expression: "credentials.email"
+              }
+            ],
+            attrs: { type: "email", placeholder: "email", name: "email" },
+            domProps: { value: _vm.credentials.email },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.credentials, "email", $event.target.value)
+              }
             }
           }),
           _vm._v(" "),
           _c("input", {
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.credentials.password,
+                expression: "credentials.password"
+              }
+            ],
             attrs: {
               type: "password",
               placeholder: "password",
               name: "password"
+            },
+            domProps: { value: _vm.credentials.password },
+            on: {
+              input: function($event) {
+                if ($event.target.composing) {
+                  return
+                }
+                _vm.$set(_vm.credentials, "password", $event.target.value)
+              }
             }
           }),
           _vm._v(" "),

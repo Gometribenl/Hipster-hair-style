@@ -2,15 +2,23 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use Illuminate\Support\Facades\Auth;
 use Mollie\Laravel\Facades\Mollie;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     *
+     * handles perparing for a payment where $value = shopping cart, redirect url is for accesing the api in localhost via Ngrok
+     */
     public function preparePayment(Request $request)
     {
-        $value= strval($request->value);
+        $value = strval($request->value);
         $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
@@ -31,6 +39,12 @@ class OrderController extends Controller
         return redirect($payment->getCheckoutUrl(), 303);
     }
 
+    /**
+     * @return string
+     * handles the orders if success order gets added to the database else payment failed
+     *
+     */
+
     public function handleErrorOrSuccess()
     {
 
@@ -40,15 +54,20 @@ class OrderController extends Controller
 
 
         if ($payment->isPaid()) {
+            // saves order in database when paid for
+            $objOrder = new Order();
+            $objOrder->user_id = Auth::id();
+            $objOrder->date = now();
+            $objOrder->save();
 
             return 'Payment received.';
 
-
-            // Do your thing ...
 
         }
 
         return 'Payment failed!!!';
 
     }
+
+
 }

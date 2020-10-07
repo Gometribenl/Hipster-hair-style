@@ -2,16 +2,18 @@
    <div class="container">
        <div class="row">
            <div class="col-4">
+<!--               shows products in cart -->
                <div v-for="product in productsInCart">
                    <p>
                        <span class="cat">{{product.title}} <button @click="removeToCart(product)">remove</button></span>
                    </p>
                </div>
+<!--               adds to cart -->
                <button @click="handlePayment">Bestellen</button>
            </div>
        </div>
 
-
+<!--shows products with details-->
        <div class="row">
            <div class="col-6" v-for="product in products">
                <h5>{{product.title}}</h5>
@@ -28,38 +30,32 @@
 <script>
     export default {
         data: () => ({
-            csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-            taxes: [],
-            tax: '',
+            // data needed to display products
             products: [],
             product: '',
+            // data needed to display products in cart
             productsInCart: [],
         }),
 
         mounted() {
+            // checks if products are in a session
             if (sessionStorage.getItem('cart')) {
                 this.productsInCart = JSON.parse(sessionStorage.getItem('cart'))
             }
         },
 
         methods: {
+            // adds products to cart and session
             addToCart (id) {
                 this.productsInCart.push(id);
                 sessionStorage.setItem('cart', JSON.stringify(this.productsInCart))
             },
+            // removes product from cart and session
             removeToCart (id) {
                 this.productsInCart.splice(id, 1);
                 sessionStorage.setItem('cart', JSON.stringify(this.productsInCart))
             },
-
-            getTaxes() {
-                axios.get('/tax').then(({ data }) => {
-
-                    this.taxes= data;
-            }).catch((error)  => {
-                    console.error(error)
-                })
-            },
+            // handles payment front-end
             handlePayment () {
                 let total = 0;
 
@@ -72,6 +68,7 @@
                     total = total.toFixed(2);
                     window.location.assign('http://4346e579fbc8.ngrok.io/order/payment/' + total.toString());
             },
+            // gets products from database
             getProducts () {
                 axios.get('/products').then(({ data }) => {
                     this.products= data;
@@ -82,7 +79,7 @@
         },
 
         created() {
-            this.getTaxes()
+            // starts function when site is loaded
             this.getProducts()
         }
 

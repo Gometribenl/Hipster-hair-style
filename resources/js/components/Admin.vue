@@ -2,10 +2,11 @@
     <div class="container">
         <div class="row">
             <div class="col-8">
+                <!--            make product form-->
                 <form action="products" method="POST">
                     <input type="hidden" name="_token" :value="csrf">
-                    <input type="text" placeholder="title" name="title" />
-                    <input type="text" placeholder="desc" name="desc" />
+                    <input type="text" placeholder="title" name="title"/>
+                    <input type="text" placeholder="desc" name="desc"/>
                     <input type="number" placeholder="instock" name="instock"/>
                     <input type="decimal" placeholder="price" name="price"/>
                     <label for="tax"></label>
@@ -16,10 +17,11 @@
                 </form>
             </div>
         </div>
+        <!--        make tax form-->
         <div class="row">
             <form action="tax" method="POST">
                 <input type="hidden" name="_token" :value="csrf">
-                <input type="text" placeholder="tax" name="tax" />
+                <input type="text" placeholder="tax" name="tax"/>
                 <input type="submit" value="verzend"/>
             </form>
         </div>
@@ -28,37 +30,30 @@
 
 <script>
     export default {
+
         data: () => ({
+            //generates csrf token
             csrf: document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+            // data needed to display taxes
             taxes: [],
             tax: '',
-            products: [],
-            product: '',
-            productsInCart: [],
         }),
-
+// functions
         methods: {
 
             getTaxes() {
-                axios.get('/tax').then(({ data }) => {
+                axios.get('/tax').then(({data}) => {
 
-                    this.taxes= data;
-                }).catch((error)  => {
-                    console.error(error)
-                })
-            },
-            getProducts () {
-                axios.get('/products').then(({ data }) => {
-                    this.products= data;
-                }).catch((error)  => {
+                    this.taxes = data;
+                }).catch((error) => {
                     console.error(error)
                 })
             },
         },
-
+// starts when site is loaded
         created() {
+
             this.getTaxes()
-            this.getProducts()
         }
 
 
