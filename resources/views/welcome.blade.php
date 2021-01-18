@@ -13,12 +13,6 @@
     <div id="app">
         <App></App>
     </div>
-    <script>
-        window.Laravel = {!! json_encode([
-       'csrfToken' => csrf_token(),
-       'apiToken' => $token_name ?? null,
-   ]) !!};
-    </script>
     <script type="text/javascript" src="/js/app.js"></script>
 </body>
 </html>

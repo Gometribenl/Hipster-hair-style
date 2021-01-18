@@ -23,7 +23,7 @@ class ProductsController extends Controller
         $objproduct->taxes_id = $request->input('tax');
         $objproduct->save();
 
-        return view('welcome');
+        return $this->index();
     }
 
 }

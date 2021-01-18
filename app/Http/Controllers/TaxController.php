@@ -14,11 +14,16 @@ class TaxController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
+    public function index () {
+        return Tax::orderBy('tax')->get();
+    }
+
     public function store(Request $request)
     {
         $objtax = new Tax();
         $objtax->tax = $request->input('tax');
         $objtax->save();
+        return $this->index();
     }
 
 }

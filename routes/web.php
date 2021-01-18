@@ -19,15 +19,12 @@ Route::get('/order/success', 'OrderController@handleErrorOrSuccess');
 Route::get('/order/webhooks', 'OrderController@handleErrorOrSuccess');
 
 //database routes
-Route::resource('/products', 'ProductsController');
-Route::resource('/tax', 'TaxController');
-Route::resource('/user', 'UserController' );
-Route::post('/user/login', 'UserController@login');
+
 
 //vue routes
 Route::get('/{any}', function(){
     return view('welcome');
-})->where('any', '.*');
+})->where('any', '^((?!order).)*');
 
 
 

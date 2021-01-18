@@ -32,7 +32,7 @@ class UserController extends Controller
 
             //attempt to authenticate. Returns true or false
             if (!Auth::attempt($userdata)) {
-                return response()->json(['status' => 400, 'message' => 'Wrong email or password']);
+                return response()->json(['status' => 400, 'message' => 'Wrong email or password',$userdata]);
             } else if (Auth::attempt($userdata)) {
                 $user = User::where('email', $request->email)->first();
                 if(Hash::check($request->password, $user->password)) {
@@ -56,14 +56,16 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
-        $objNewUser = new User();
-        $objNewUser->first_name = $request->input('first_name');
-        $objNewUser->last_name = $request->input('last_name');
-        $objNewUser->email = $request->input('email');
-        $objNewUser->password = $request->input('password');
-        $objNewUser->phonenumber = $request->input('phonenumber');
-        $objNewUser->save();
-
+        $request->validate([
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8',
+            'phonenumber'=> 'required|min:4',
+            'first_name'=>'required|min:2',
+            'last_name'=> 'required|min:2',
+        ]);
+        $user= $request->all();
+        $user['password'] = Hash::make($request->password);
+        User::create($user);
     }
 
 }

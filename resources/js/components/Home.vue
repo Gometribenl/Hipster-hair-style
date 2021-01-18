@@ -66,11 +66,11 @@
                 }}
 
                     total = total.toFixed(2);
-                    window.location.assign('http://4346e579fbc8.ngrok.io/order/payment/' + total.toString());
+                    window.location.assign('http://a89ca10556f8.ngrok.io/order/payment/' + total.toString());
             },
             // gets products from database
             getProducts () {
-                axios.get('/products').then(({ data }) => {
+                axios.get('/api/products').then(({ data }) => {
                     this.products= data;
                 }).catch((error)  => {
                     console.error(error)
