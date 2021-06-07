@@ -26,9 +26,9 @@ class OrderController extends Controller
                 "value" => $value // You must send the correct number of decimals, thus we enforce the use of strings
             ],
             "description" => "Order #12345",
-            "redirectUrl" => 'http://4346e579fbc8.ngrok.io/order/success',
+            "redirectUrl" => 'http://a89ca10556f8.ngrok.io/order/success',
             //YOU HAVE TO CHANGE THIS EVERY TIME YOU START NGROK
-            "webhookUrl" => 'http://4346e579fbc8.ngrok.io/order/webhooks',
+            "webhookUrl" => 'http://a89ca10556f8.ngrok.io/order/webhooks',
             "metadata" => [
                 "order_id" => "12345",
             ],
