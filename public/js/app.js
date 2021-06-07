@@ -53649,9 +53649,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Admin_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Admin.vue */ "./resources/js/components/Admin.vue");
 /* harmony import */ var _components_Login_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Login.vue */ "./resources/js/components/Login.vue");
 /* harmony import */ var _components_Register_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Register.vue */ "./resources/js/components/Register.vue");
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
 
 
 vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]);
@@ -54220,8 +54220,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! D:\www\hipster-hair-shop\resources\js\app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! D:\www\hipster-hair-shop\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/kayjoosten/Documents/www/School/hipster-hair-shop/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/kayjoosten/Documents/www/School/hipster-hair-shop/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

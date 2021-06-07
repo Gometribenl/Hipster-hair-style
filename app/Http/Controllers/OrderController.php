@@ -6,6 +6,7 @@ use App\Order;
 use Illuminate\Support\Facades\Auth;
 use Mollie\Laravel\Facades\Mollie;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class OrderController extends Controller
 {

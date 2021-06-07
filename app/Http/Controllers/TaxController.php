@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Tax;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Controller;
 
 class TaxController extends Controller
 {
