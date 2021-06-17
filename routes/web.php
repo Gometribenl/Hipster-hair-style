@@ -14,12 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //mollie routes
-Route::get('/order/payment/{value}', 'OrderController@preparePayment');
+Route::get('/order/pay/{total}/{credentials}', 'OrderController@preparePayment');
 Route::get('/order/success', 'OrderController@handleErrorOrSuccess');
-Route::get('/order/webhooks', 'OrderController@handleErrorOrSuccess');
-
-//database routes
-
+Route::post('/order/webhooks', 'OrderController@handleErrorOrSuccess');
 
 //vue routes
 Route::get('/{any}', function(){

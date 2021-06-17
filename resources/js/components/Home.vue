@@ -1,5 +1,9 @@
 <template>
    <div class="container">
+       <div>
+           <button @click="getuserid()">get user id </button>
+           <p>{{userid}}</p>
+       </div>
        <div class="row">
            <div class="col-4">
 <!--               shows products in cart -->
@@ -25,6 +29,7 @@
            </div>
        </div>
    </div>
+
 </template>
 
 <script>
@@ -35,6 +40,7 @@
             product: '',
             // data needed to display products in cart
             productsInCart: [],
+            userid: '',
         }),
 
         mounted() {
@@ -49,6 +55,7 @@
             addToCart (id) {
                 this.productsInCart.push(id);
                 sessionStorage.setItem('cart', JSON.stringify(this.productsInCart))
+
             },
             // removes product from cart and session
             removeToCart (id) {
@@ -58,15 +65,22 @@
             // handles payment front-end
             handlePayment () {
                 let total = 0;
+                let user_id = sessionStorage.getItem('userid', this.userid)
+
 
                 if(this.productsInCart) {
                     for (let i = 0; i < this.productsInCart.length; i++) {
                         let price = this.productsInCart[i].price * 1;
                         total = total + price
                 }}
+                total = total.toFixed(2);
 
-                    total = total.toFixed(2);
-                    window.location.assign('http://a89ca10556f8.ngrok.io/order/payment/' + total.toString());
+                let user =  JSON.parse(user_id);
+                    window.location.assign('/order/pay/' + total + '/' + user[0]);
+            },
+            getuserid() {
+                this.userid = sessionStorage.getItem('userid', this.userid)
+                console.log(this.userid)
             },
             // gets products from database
             getProducts () {

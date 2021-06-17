@@ -6,7 +6,7 @@
             <div class="col-8">
                     <input type="email" placeholder="email" v-model="email" />
                     <input type="password" placeholder="password" v-model="password" />
-                    <button @click="login">Login</button>
+                    <button @click="login()">Login</button>
                 <button @click="getUser">getuser</button>
 
 
@@ -19,6 +19,7 @@
 <script>
     export default {
         data: () => ({
+            userid: [],
             email: '',
             password: '',
 
@@ -35,17 +36,22 @@
                     'password': this.password
                 }).then(result=>{
                     console.log(result)
+                    this.getUser()
                 })
+
+
             },
+
             getUser() {
-                axios.get('/api/user2').then(result=>{
+                axios.get('/api/user1').then(result=>{
                     console.log(result)
+                    this.userid.push(result.data.id);
+                    sessionStorage.setItem('userid', JSON.stringify(this.userid))
                 })
             }
         },
 
         created() {
-
         }
 
 

@@ -7,8 +7,10 @@
                     <input type="number" placeholder="instock" v-model="instock"/>
                     <input type="decimal" placeholder="price" v-model="price"/>
                     <label for="tax"></label>
-                    <select name="tax" id="tax">
-                        <option v-bind:value="tax.id" v-for="tax in taxes">{{tax.tax}}</option>
+                    <select name="tax" id="tax" v-model="mytax">
+                        <option >Geen</option>
+
+                        <option  v-for="tax in taxes" :value="tax.id">{{tax.tax}}</option>
                     </select>
                     <button @click="postProduct">Verzenden</button>
             </div>
@@ -27,7 +29,8 @@
         data: () => ({
             // data needed to display taxes
             taxes: [],
-            tax: '',
+            mytax: 'Geen',
+            tax:'',
             title: '',
             desc: '',
             instock: '',
@@ -39,10 +42,12 @@
             postTax() {
               axios.post('/api/tax', {'tax':this.tax}).then(res=>{
                   this.taxes = res.data
-              })
+              }).catch((error) => {
+                  console.error(error)
+                })
             },
             postProduct() {
-                axios.post('/api/products', {'title':this.title, 'desc':this.desc, 'price':this.price, 'instock':this.instock}).then(res=>{
+                axios.post('/api/products', {'title':this.title, 'desc':this.desc, 'price':this.price, 'instock':this.instock, 'tax':this.mytax}).then(res=>{
                     this.products = res.data
                 })
             },

@@ -29,19 +29,30 @@ class ProductsController extends Controller
         return $objproducts;
     }
 
-    public function store(Request $request)
-    {
-        $objproduct = new Product();
-        $objproduct->title = $request->input('title');
-        $objproduct->desc = $request->input('desc');
-        $objproduct->instock = $request->input('instock');
-        $objproduct->price = $request->input('price');
-        $objproduct->taxes_id = $request->input('tax');
-        $objproduct->save();
+    public function store(Request $request) {
 
-        return $this->index();
+        if ($request->validate([
+            'title' => 'required|max:191',
+            'desc' => 'required|max:1000',
+            'price' => 'required',
+        ]))
+
+        {
+            $objproduct = new Product();
+            $objproduct->title = $request->input('title');
+            $objproduct->desc = $request->input('desc');
+            $objproduct->instock = $request->input('instock');
+            $objproduct->price = $request->input('price');
+            $objproduct->taxes_id = $request->input('tax');
+            $objproduct->save();
+
+            return response()->json(['status' => 'succes']);
+        } else {
+                return response()->json(['status' => 'error']);
+            }
     }
-    /**
+
+        /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Product  $products

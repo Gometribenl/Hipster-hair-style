@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Address;
 use App\Order;
-use Illuminate\Support\Facades\Auth;
-use Mollie\Laravel\Facades\Mollie;
+use App\Order_Quantity;
+use App\Product;
+use App\ProductOrder;
 use Illuminate\Http\Request;
-use Illuminate\Routing\Controller;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
+use Mollie\Laravel\Facades\Mollie;
+
 
 class OrderController extends Controller
 {
@@ -19,23 +24,29 @@ class OrderController extends Controller
      */
     public function preparePayment(Request $request)
     {
-        $value = strval($request->value);
+        //YOU HAVE TO CHANGE THIS EVERY TIME YOU START NGROK
+        $url = 'https://865bd53e956e.ngrok.io';
+//        $value = strval($request->value);
+        $order_id = mt_rand(1000000, 9999999);
+
         $payment = Mollie::api()->payments->create([
             "amount" => [
                 "currency" => "EUR",
-                "value" => $value // You must send the correct number of decimals, thus we enforce the use of strings
+                "value" => $request->total // You must send the correct number of decimals, thus we enforce the use of strings
             ],
-            "description" => "Order #12345",
-            "redirectUrl" => 'http://a89ca10556f8.ngrok.io/order/success',
-            //YOU HAVE TO CHANGE THIS EVERY TIME YOU START NGROK
-            "webhookUrl" => 'http://a89ca10556f8.ngrok.io/order/webhooks',
+
+            "description" => "hipsterhair ",
+            "redirectUrl" => $url . '/order/success',
+
+            "webhookUrl" => $url . '/order/webhooks',
             "metadata" => [
-                "order_id" => "12345",
+                "order_id" => $order_id,
             ],
         ]);
         session_start();
-
         $_SESSION['payment_id'] = $payment->id;
+        $_SESSION['credentials'] = json_decode($request->credentials);
+
         // redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
     }

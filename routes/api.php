@@ -13,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::middleware('auth:sanctum')->get('/user2', function (Request $request) {
+Route::middleware('auth:sanctum')->get('/user1', function (Request $request) {
     return $request->user();
 });
+
+//database routes
 Route::resource('/products', 'ProductsController');
 Route::resource('/tax', 'TaxController')->only(['index','store']);
 Route::resource('/user', 'UserController');
