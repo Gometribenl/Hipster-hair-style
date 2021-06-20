@@ -2210,7 +2210,7 @@ __webpack_require__.r(__webpack_exports__);
 
       total = total.toFixed(2);
       var user = JSON.parse(user_id);
-      window.location.assign('/order/pay/' + total + '/' + user[0]);
+      window.location.assign('https://hipster.kay-joosten.nl/order/pay/' + total);
     },
     getuserid: function getuserid() {
       this.userid = sessionStorage.getItem('userid', this.userid);

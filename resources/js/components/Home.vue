@@ -76,7 +76,7 @@
                 total = total.toFixed(2);
 
                 let user =  JSON.parse(user_id);
-                    window.location.assign('/order/pay/' + total + '/' + user[0]);
+                    window.location.assign('https://hipster.kay-joosten.nl/order/pay/' + total );
             },
             getuserid() {
                 this.userid = sessionStorage.getItem('userid', this.userid)

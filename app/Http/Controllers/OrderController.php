@@ -25,7 +25,7 @@ class OrderController extends Controller
     public function preparePayment(Request $request)
     {
         //YOU HAVE TO CHANGE THIS EVERY TIME YOU START NGROK
-        $url = 'https://865bd53e956e.ngrok.io';
+        $url = 'https://hipster.kay-joosten.nl/';
 //        $value = strval($request->value);
         $order_id = mt_rand(1000000, 9999999);
 
