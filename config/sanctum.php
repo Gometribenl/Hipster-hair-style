@@ -47,4 +47,15 @@ return [
         'encrypt_cookies' => App\Http\Middleware\EncryptCookies::class,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | custom settings
+    |--------------------------------------------------------------------------
+    |
+    | Here you can change default settings from sanctum
+    |
+    */
+
+    'prefix' => 'api',
+    'guard' => 'api'
 ];
