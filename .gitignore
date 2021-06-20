@@ -352,3 +352,4 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/laravel,composer,vue,vuejs,node,windows,macos,phpstorm,visualstudiocode,linux,sass
+public/js/app.js
