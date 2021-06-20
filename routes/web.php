@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 //mollie routes
-Route::get('/order/pay/{total}/{credentials}', 'OrderController@preparePayment');
+Route::get('/order/pay/{total}', 'OrderController@preparePayment');
 Route::get('/order/success', 'OrderController@handleErrorOrSuccess');
 Route::post('/order/webhooks', 'OrderController@handleErrorOrSuccess');
 
