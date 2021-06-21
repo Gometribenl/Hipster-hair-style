@@ -25,7 +25,7 @@ class OrderController extends Controller
     public function preparePayment(Request $request)
     {
         //YOU HAVE TO CHANGE THIS EVERY TIME YOU START NGROK
-        $url = 'https://hipster.kay-joosten.nl/';
+        $url = 'https://hipster.kay-joosten.nl';
 //        $value = strval($request->value);
         $order_id = mt_rand(1000000, 9999999);
 
@@ -63,13 +63,15 @@ class OrderController extends Controller
         session_start();
 
         $payment = Mollie::api()->payments->get($_SESSION['payment_id']);
-
+        $products = $_SESSION['credentials']->cart;
 
         if ($payment->isPaid()) {
             // saves order in database when paid for
             $objOrder = new Order();
-            $objOrder->user_id = Auth::id();
+
+            $objOrder->userid = $_SESSION['credentials']->userid;;
             $objOrder->date = now();
+
             $objOrder->save();
 
             return 'Payment received.';
