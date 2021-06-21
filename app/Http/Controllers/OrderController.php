@@ -45,7 +45,7 @@ class OrderController extends Controller
         ]);
         session_start();
         $_SESSION['payment_id'] = $payment->id;
-        $_SESSION['credentials'] = json_decode($request->credentials);
+        $_SESSION['credentials'] = json_decode($request->userid);
 
         // redirect customer to Mollie checkout page
         return redirect($payment->getCheckoutUrl(), 303);
@@ -63,13 +63,14 @@ class OrderController extends Controller
         session_start();
 
         $payment = Mollie::api()->payments->get($_SESSION['payment_id']);
-        $products = $_SESSION['credentials']->cart;
+//        $products = $_SESSION['credentials']->cart;
 
         if ($payment->isPaid()) {
+
             // saves order in database when paid for
             $objOrder = new Order();
 
-            $objOrder->userid = $_SESSION['credentials']->userid;;
+            $objOrder->user_id = $_SESSION['credentials'];
             $objOrder->date = now();
 
             $objOrder->save();
